@@ -1,0 +1,1561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Branding with Social Media & Gen AI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow: hidden;
+        }
+
+        .slideshow-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slide {
+            display: none;
+            width: 90%;
+            max-width: 1200px;
+            height: 80vh;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            overflow-y: auto;
+        }
+
+        .slide.active {
+            display: block;
+            animation: slideIn 0.5s ease-in-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .slide-header {
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+
+        .slide-number {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            background: #667eea;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        h2 {
+            font-size: 2em;
+            margin-bottom: 15px;
+            color: white;
+        }
+
+        h3 {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            color: #34495e;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .content-card {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+            text-align: left;
+            transition: transform 0.3s ease;
+        }
+
+        .content-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .platform-comparison {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .platform-card {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .tool-showcase {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin: 30px 0;
+        }
+
+        .tool-icon {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            margin: 10px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .tool-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .interactive-section {
+            background: #e8f4fd;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border: 2px dashed #667eea;
+        }
+
+        .hands-on-task {
+            background: linear-gradient(135deg, #ff9a9e, #fecfef);
+            color: #2c3e50;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background: #5a67d8;
+            transform: translateY(-2px);
+        }
+
+        .nav-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .slide-counter {
+            position: fixed;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255,255,255,0.9);
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .poll-section {
+            background: #fff3cd;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #ffc107;
+        }
+
+        .framework-visual {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .framework-item {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #dee2e6;
+            position: relative;
+        }
+
+        .framework-item::before {
+            content: attr(data-icon);
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: #667eea;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 50%;
+            font-size: 18px;
+        }
+
+        .content-pillars {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .pillar {
+            background: linear-gradient(135deg, #a8edea, #fed6e3);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .ai-demo {
+            background: #f0f8ff;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border: 2px solid #4ecdc4;
+        }
+
+        .ethics-highlight {
+            background: #ffe6e6;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #ff6b6b;
+        }
+
+        .challenge-day {
+            background: #e8f5e8;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border-left: 4px solid #28a745;
+        }
+
+        .qr-placeholder {
+            width: 150px;
+            height: 150px;
+            background: #f8f9fa;
+            border: 2px dashed #ccc;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px auto;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .title-slide {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .title-slide h1 {
+            color: white;
+            font-size: 3.5em;
+            margin-bottom: 30px;
+        }
+        h3 {
+            color: #fb9700; /* Lighter shade of blue */
+        }
+        .trainer-info {
+            background: rgba(224, 38, 38, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 30px 0;
+        }
+
+        ul {
+            text-align: left;
+            padding-left: 20px;
+        }
+
+        li {
+            margin: 10px 0;
+            font-size: 1.1em;
+        }
+
+         .timer-container {
+            text-align: center;
+            margin: 50px auto;
+            max-width: 300px;
+        }
+
+        #display {
+            font-size: 48px;
+            font-family: monospace;
+            margin: 20px 0;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 25px;
+            border: none;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            transition: background 0.3s, box-shadow 0.3s;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.15);
+        }
+        button:hover {
+            background: linear-gradient(135deg, #5a67d8, #6c3483);
+            box-shadow: 0 4px 16px rgba(102, 126, 234, 0.25);
+        }
+
+    </style>
+</head>
+<body>
+    <div class="slide-counter">
+        <span id="slideCounter">1 / 30</span>
+    </div>
+
+    <div class="slideshow-container">
+        
+        <!-- Slide 1: Title Slide -->
+        <div class="slide active title-slide">
+            <h1>🚀 How to increase MF Business through Gen AI?</h1>
+            <div class="trainer-info">
+                <h3>Trainer: Mr. Monu Shetty</h3>
+                <p>An interactive session organised by Tata Mutual Funds & NJ Wealth</p>
+                <p>📅 20th June 2025 | 📍 The Fern, Vadodara</p>
+            </div>
+            <p style="font-size: 1.2em; opacity: 0.9;">As a MFD are you ready to become the architect of your digital identity?</p>
+       
+               <div class="timer-container">
+        <div id="display">00:00:00</div>
+        <div class="controls">
+            <button id="startBtn">Start</button>
+            <button id="pauseBtn">Pause</button>
+            <button id="stopBtn">Stop</button>
+        </div>
+    </div>
+       
+        </div>
+
+      
+
+        <!-- Slide 2: What You'll Learn Today -->
+        <div class="slide">
+            <div class="slide-number">2 / 30</div>
+            <div class="slide-header">
+                <h2>🎯 What You'll Learn Today</h2>
+            </div>
+            <div class="content-grid">
+                <div class="content-card">
+                    <h3>🧩 Module 1: Personal Branding Foundations</h3>
+                    <p>Build your Brand DNA framework</p>
+                </div>
+                <div class="content-card">
+                    <h3>📱 Module 2: Social Media Strategy</h3>
+                    <p>Platform selection & content planning</p>
+                </div>
+                <div class="content-card">
+                    <h3>🤖 Module 3: Gen AI for Content</h3>
+                    <p>Text, visual, and video creation</p>
+                </div>
+                <div class="content-card">
+                    <h3>⚡ Module 4: Automation & Productivity</h3>
+                    <p>Streamline your workflow</p>
+                </div>
+                <div class="content-card">
+                    <h3>📈 Module 5: Growth & Ethics</h3>
+                    <p>Scale responsibly</p>
+                </div>
+                <div class="content-card">
+                    <h3>🎉 Module 6: 7-Day Challenge</h3>
+                    <p>Your action plan</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Icebreaker -->
+        <div class="slide">
+            <div class="slide-number">3 / 30</div>
+            <div class="slide-header">
+                <h2>🔍 Icebreaker: Who Are You Online?</h2>
+            </div>
+            <div class="poll-section">
+                <h3>Quick Self-Assessment</h3>
+                <p><strong>Google your name right now. What do you find?</strong></p>
+                <ul>
+                    <li>Professional profiles that represent you well?</li>
+                    <li>Outdated or irrelevant information?</li>
+                    <li>Nothing at all?</li>
+                    <li>Something you'd rather not see?</li>
+                </ul>
+            </div>
+            <div class="interactive-section">
+                <h3>💭 Reflection Question</h3>
+                <p>If someone met you online first, what impression would they have?</p>
+                <p><em>Share your thoughts with the person next to you!</em></p>
+            </div>
+        </div>
+
+        <!-- Slide 4: What is Personal Branding? -->
+        <div class="slide">
+            <div class="slide-number">4 / 30</div>
+            <div class="slide-header">
+                <h2>💡 What is Personal Branding?</h2>
+            </div>
+            <h3>"Your personal brand is what people say about you when you're not in the room" - Jeff Bezos</h3>
+            <div class="content-grid">
+                <div class="content-card">
+                    <h3>🎭 Definition</h3>
+                    <p>Personal branding is the practice of marketing yourself and your career as a brand. It's about defining who you are, what you stand for, and how you want to be perceived.</p>
+                </div>
+                <div class="content-card">
+                    <h3>⭐ Famous Examples</h3>
+                    <ul>
+                        <li><strong>Gary Vaynerchuk:</strong> Wine expertise → Business authority</li>
+                        <li><strong>Marie Forleo:</strong> Life coach → Business mentor</li>
+                        <li><strong>Neil Patel:</strong> Marketing expertise → Digital authority</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Why Personal Branding Matters Today -->
+        <div class="slide">
+            <div class="slide-number">5 / 30</div>
+            <div class="slide-header">
+                <h2>🌟 Why Personal Branding Matters Today</h2>
+            </div>
+            <div class="content-grid">
+                <div class="content-card">
+                    <h3>🤖 AI + Human Identity</h3>
+                    <p>In an AI-driven world, your unique human perspective becomes your competitive advantage. Personal branding helps you stand out in the digital noise.</p>
+                </div>
+                <div class="content-card">
+                    <h3>🚀 Success Stories</h3>
+                    <ul>
+                        <li><strong>Ali Abdaal:</strong> Uses AI tools for content creation while maintaining authentic voice</li>
+                        <li><strong>Jasmine Star:</strong> Leverages AI for social media planning</li>
+                        <li><strong>Pat Flynn:</strong> Integrates AI into business processes transparently</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="interactive-section">
+                <h3>💡 Key Insight</h3>
+                <p>AI amplifies your brand, but your authentic voice makes it unique!</p>
+            </div>
+        </div>
+
+        <!-- Slide 6: Brand DNA Framework -->
+        <div class="slide">
+            <div class="slide-number">6 / 30</div>
+            <div class="slide-header">
+                <h2>🧬 The "Brand DNA" Framework</h2>
+            </div>
+            <div class="framework-visual">
+                <div class="framework-item" data-icon="👥">
+                    <h3>Audience</h3>
+                    <p>Who do you want to serve? What are their pain points, interests, and goals?</p>
+                </div>
+                <div class="framework-item" data-icon="🎯">
+                    <h3>Niche</h3>
+                    <p>What specific area will you focus on? What's your unique angle or expertise?</p>
+                </div>
+                <div class="framework-item" data-icon="❤️">
+                    <h3>Values</h3>
+                    <p>What principles guide your decisions? What do you stand for?</p>
+                </div>
+                <div class="framework-item" data-icon="🗣️">
+                    <h3>Voice</h3>
+                    <p>How do you communicate? What's your tone, style, and personality?</p>
+                </div>
+            </div>
+            <div class="hands-on-task">
+                <h3>✏️ Hands-on Task</h3>
+                <p>Complete your Brand DNA worksheet - spend 5 minutes filling out each quadrant!</p>
+            </div>
+        </div>
+
+        <!-- Slide 7: Choosing the Right Platform -->
+        <div class="slide">
+            <div class="slide-number">7 / 30</div>
+            <div class="slide-header">
+                <h2>📱 Choosing the Right Platform</h2>
+            </div>
+            <div class="platform-comparison">
+                <div class="platform-card">
+                    <h3>📸 Instagram</h3>
+                    <p><strong>Best for:</strong> Visual storytelling, lifestyle, creativity</p>
+                    <p><strong>Audience:</strong> 18-34, visual learners</p>
+                    <p><strong>Content:</strong> Photos, Reels, Stories</p>
+                </div>
+                <div class="platform-card">
+                    <h3>💼 LinkedIn</h3>
+                    <p><strong>Best for:</strong> Professional networking, B2B, thought leadership</p>
+                    <p><strong>Audience:</strong> 25-54, professionals</p>
+                    <p><strong>Content:</strong> Articles, posts, videos</p>
+                </div>
+                <div class="platform-card">
+                    <h3>🎥 YouTube</h3>
+                    <p><strong>Best for:</strong> Educational content, tutorials, entertainment</p>
+                    <p><strong>Audience:</strong> All ages, deep engagement</p>
+                    <p><strong>Content:</strong> Long-form videos, Shorts</p>
+                </div>
+                <div class="platform-card">
+                    <h3>🐦 Twitter/X</h3>
+                    <p><strong>Best for:</strong> Real-time updates, networking, commentary</p>
+                    <p><strong>Audience:</strong> News consumers, professionals</p>
+                    <p><strong>Content:</strong> Text, threads, quick videos</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Content Pillars -->
+        <div class="slide">
+            <div class="slide-number">8 / 30</div>
+            <div class="slide-header">
+                <h2>🏛️ Content Pillars: What Should You Post?</h2>
+            </div>
+            <div class="content-pillars">
+                <div class="pillar">
+                    <h3>📚 Educate</h3>
+                    <p>Share knowledge, tips, tutorials, insights from your expertise</p>
+                </div>
+                <div class="pillar">
+                    <h3>✨ Inspire</h3>
+                    <p>Motivational content, success stories, behind-the-scenes</p>
+                </div>
+                <div class="pillar">
+                    <h3>😄 Entertain</h3>
+                    <p>Humor, relatable content, trending topics, personality</p>
+                </div>
+                <div class="pillar">
+                    <h3>🎯 Promote</h3>
+                    <p>Your services, products, achievements (use sparingly!)</p>
+                </div>
+            </div>
+            <div class="interactive-section">
+                <h3>💡 The 80/20 Rule</h3>
+                <p>80% value-driven content (Educate, Inspire, Entertain) + 20% promotional content</p>
+            </div>
+        </div>
+
+        <!-- Slide 9: Content Types & Formats -->
+        <div class="slide">
+            <div class="slide-number">9 / 30</div>
+            <div class="slide-header">
+                <h2>🎨 Content Types & Formats</h2>
+            </div>
+            <div class="content-grid">
+                <div class="content-card">
+                    <h3>🎬 Video Content</h3>
+                    <ul>
+                        <li>Instagram Reels (15-60 seconds)</li>
+                        <li>YouTube Shorts (60 seconds)</li>
+                        <li>LinkedIn native videos (2-3 minutes)</li>
+                        <li>Stories (24-hour content)</li>
+                    </ul>
+                </div>
+                <div class="content-card">
+                    <h3>📑 Static Content</h3>
+                    <ul>
+                        <li>Carousel posts (swipe-through)</li>
+                        <li>Infographics</li>
+                        <li>Quote graphics</li>
+                        <li>Behind-the-scenes photos</li>
+                    </ul>
+                </div>
+                <div class="content-card">
+                    <h3>✍️ Text Content</h3>
+                    <ul>
+                        <li>Twitter/X threads</li>
+                        <li>LinkedIn articles</li>
+                        <li>Captions with storytelling</li>
+                        <li>Live commentary</li>
+                    </ul>
+                </div>
+                <div class="content-card">
+                    <h3>🎙️ Audio Content</h3>
+                    <ul>
+                        <li>Podcast appearances</li>
+                        <li>Twitter Spaces</li>
+                        <li>Instagram Live audio</li>
+                        <li>Telegram Audio Live - Voice Chats</li>
+                        <li>Voice notes in DMs</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Engagement Tips -->
+        <div class="slide">
+            <div class="slide-number">10 / 30</div>
+            <div class="slide-header">
+                <h2>💬 Engagement Tips</h2>
+            </div>
+            <div class="content-grid">
+                <div class="content-card">
+                    <h3>🎯 Strong CTAs</h3>
+                    <ul>
+                        <li>"What's your biggest challenge with...?"</li>
+                        <li>"Drop a 🔥 if you agree!"</li>
+                        <li>"Save this post for later"</li>
+                        <li>"Share your experience in the comments"</li>
+                    </ul>
+                </div>
+                <div class="content-card">
+                    <h3>📖 Story Prompts</h3>
+                    <ul>
+                        <li>Share a failure that led to success</li>
+                        <li>Behind-the-scenes moments</li>
+                        <li>Day-in-the-life content</li>
+                        <li>Before/after transformations</li>
+                    </ul>
+                </div>
+                <div class="content-card">
+                    <h3>⏰ Optimal Frequency</h3>
+                    <ul>
+                        <li><strong>Instagram:</strong> 3-5 posts/week</li>
+                        <li><strong>LinkedIn:</strong> 2-3 posts/week</li>
+                        <li><strong>Twitter:</strong> 1-3 posts/day</li>
+                        <li><strong>YouTube:</strong> 1-2 videos/week</li>
+                    </ul>
+                </div>
+                <div class="content-card">
+                    <h3>🤝 Community Building</h3>
+                    <ul>
+                        <li>Respond to every comment</li>
+                        <li>Engage with others' content</li>
+                        <li>Collaborate with peers</li>
+                        <li>Create user-generated content</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Hands-on Task -->
+        <div class="slide">
+            <div class="slide-number">11 / 30</div>
+            <div class="slide-header">
+                <h2>✏️ Hands-on Task: Weekly Content Plan</h2>
+            </div>
+            <div class="hands-on-task">
+                <h3>🗓️ Create Your Weekly Content Calendar</h3>
+                <p>Using the template provided, plan your next 7 days of content:</p>
+                <ol>
+                    <li>Choose your primary platform</li>
+                    <li>Assign content pillars to each day</li>
+                    <li>Brainstorm 3 specific post ideas</li>
+                    <li>Write compelling captions with CTAs</li>
+                </ol>
+            </div>
+            <div class="interactive-section">
+                <h3>🔗 Resources</h3>
+                <p>Access your Canva templates</p>
+                <p>Notion planning templates</p>
+            </div>
+            <p><em>Time allocation: 10 minutes</em></p>
+        </div>
+
+        <!-- Slide 12: Introduction to GenAI Tools -->
+        <div class="slide">
+            <div class="slide-number">12 / 30</div>
+            <div class="slide-header">
+                <h2>🤖 Introduction to GenAI Tools</h2>
+            </div>
+            <div class="tool-showcase">
+                <div class="tool-icon">ChatGPT</div>
+                <div class="tool-icon">Canva AI</div>
+                <div class="tool-icon">Mid-journey</div>
+                <div class="tool-icon">Pictory</div>
+                <div class="tool-icon">HeyGen</div>
+                <div class="tool-icon">Lumen5</div>
+            </div>
+            <div class="content-grid">
+                <div class="content-card">
+                    <h3>📝 Text Generation</h3>
+                    <p>ChatGPT, Gemini, Claude for captions, hooks, and articles</p>
+                </div>
+                <div class="content-card">
+                    <h3>🎨 Visual Creation</h3>
+                    <p>Canva AI, Midjourney, DALL-E, MetaAI, ChatGPT for graphics and images</p>
+                </div>
+                <div class="content-card">
+                    <h3>🎬 Video Production</h3>
+                    <p>Pictory, HeyGen, Lumen5, InVideo for automated video creation</p>
+                </div>
+                <div class="content-card">
+                    <h3>⚡ Automation</h3>
+                    <p>Zapier, Notion AI, Buffer for workflow optimization</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: Text Creation with AI -->
+        <div class="slide">
+            <div class="slide-number">13 / 30</div>
+            <div class="slide-header">
+                <h2>✍️ Using ChatGPT/Gemini for Captions, Bio & Hooks</h2>
+            </div>
+            <div class="ai-demo">
+                <h3>🎯 Effective AI Prompts for Social Media</h3>
+                <div class="content-grid">
+                    <div class="content-card">
+                        <h3>Caption Generation</h3>
+                        <p><strong>Prompt:</strong> "Write an engaging Instagram caption for a post about [topic]. Include a hook, value, and call-to-action. Keep it under 150 words. Tone: [professional/casual/inspiring]"</p>
+                    </div>
+                    <div class="content-card">
+                        <h3>Bio Optimization</h3>
+                        <p><strong>Prompt:</strong> "Create a compelling LinkedIn bio for a [profession] who specializes in [niche]. Include keywords, personality, and clear value proposition. 160 characters max."</p>
+                    </div>
+                    <div class="content-card">
+                        <h3>Hook Creation</h3>
+                        <p><strong>Prompt:</strong> "Generate 10 attention-grabbing hooks for posts about [topic]. Make them curiosity-driven and specific to [target audience]."</p>
+                    </div>
+                    <div class="content-card">
+                        <h3>Thread Development</h3>
+                        <p><strong>Prompt:</strong> "Create a Twitter thread about [topic]. Start with a hook, provide 5-7 valuable points, and end with a CTA. Each tweet should be under 280 characters."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 14: Live Demo -->
+        <div class="slide">
+            <div class="slide-number">14 / 30</div>
+            <div class="slide-header">
+                <h2>🎬 Live Demo: AI Content Creation</h2>
+            </div>
+            <div class="hands-on-task">
+                <h3>🔴 Live Demonstration</h3>
+                <p>Watch as we create content in real-time using AI tools:</p>
+                <ol>
+                    <li>Generate a LinkedIn post about personal branding</li>
+                    <li>Create 5 Instagram caption variations</li>
+                    <li>Develop a Twitter thread outline</li>
+                    <li>Optimize for different audiences</li>
+                </ol>
+            </div>
+            <div class="interactive-section">
+                <h3>👥 Your Turn!</h3>
+                <p>Open ChatGPT/Gemini and try the prompts we just demonstrated. Create content for your niche!</p>
+                <p><em>Time allocation: 5 minutes</em></p>
+            </div>
+        </div>
+
+        <!-- Slide 15: Visual Creation -->
+        <div class="slide">
+            <div class="slide-number">15 / 30</div>
+            <div class="slide-header">
+                <h2>🎨 Canva AI/Midjourney for Posters & Carousels</h2>
+            </div>
+            <div class="content-grid">
+                <div class="content-card">
+                    <h3>🖼️ Canva AI Features</h3>
+                    <ul>
+                        <li><strong>Magic Design:</strong> Auto-generate designs from prompts</li>
+                        <li><strong>Magic Write:</strong> AI copywriting assistance</li>
+                        <li><strong>Background Remover:</strong> One-click background removal</li>
+                        <li><strong>Magic Resize:</strong> Adapt designs for all platforms</li>
+                    </ul>
+                </div>
+                <div class="content-card">
+                    <h3>🎭 Midjourney Prompts</h3>
+                    <ul>
+                        <li>"Professional headshot, clean background, corporate style"</li>
+                        <li>"Modern minimalist poster design, [brand colors]"</li>
+                        <li>"Abstract background for social media, vibrant colors"</li>
+                        <li>"Infographic style illustration, clean and modern"</li>
+                    </ul>
+                </div>
+                <div class="content-card">
+                    <h3>📊 Carousel Design Tips</h3>
+                    <ul>
+                        <li>Consistent color scheme and fonts</li>
+                        <li>Clear hierarchy and flow</li>
+                        <li>One key point per slide</li>
+                        <li>Strong opening and closing slides</li>
+                    </ul>
+                </div>
+                <div class="content-card">
+                    <h3>🎯 Visual Branding</h3>
+                    <ul>
+                        <li>Choose 2-3 brand colors</li>
+                        <li>Select 1-2 consistent fonts</li>
+                        <li>Create templates for efficiency</li>
+                        <li>Maintain visual consistency</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 16: Hands-on Visual Creation -->
+        <div class="slide">
+            <div class="slide-number">16 / 30</div>
+            <div class="slide-header">
+                <h2>🛠️ Hands-on: Create a Post using AI + Canva</h2>
+            </div>
+            <div class="hands-on-task">
+                <h3>✨ Create Your First AI-Powered Post</h3>
+                <p><strong>Step-by-step process:</strong></p>
+                <ol>
+                    <li>Use AI to generate a caption about your expertise</li>
+                    <li>Open Canva and use Magic Design</li>
+                    <li>Customize colors to match your brand</li>
+                    <li>Add your AI-generated text</li>
+                    <li>Export and save for posting</li>
+                </ol>
+            </div>
+            <div class="interactive-section">
+                <h3>🎨 Design Challenge</h3>
+                <p>Create a carousel post with 3-5 slides about "5 Tips for Best time to start Investing in Mutual Funds"</p>
+                <p><em>Time allocation: 15 minutes</em></p>
+            </div>
+            <div class="ai-demo">
+                <h3>💡 Pro Tip</h3>
+                <p>Save your designs as templates in Canva for future use!</p>
+            </div>
+        </div>
+
+        <!-- Slide 17: Video Creation Intro -->
+        <div class="slide">
+            <div class="slide-number">17 / 30</div>
+            <div class="slide-header">
+                <h2>🎬 Intro to Pictory / HeyGen / Lumen5</h2>
+            </div>
+            <div class="content-grid">
+                <div class="content-card">
+                    <h3>📹 Pictory</h3>
+                    <p><strong>Best for:</strong> Blog-to-video, script-to-video</p>
+                    <ul>
+                        <li>Automatic scene selection</li>
+                        <li>Stock footage integration</li>
+                        <li>Voice-over generation</li>
+                        <li>Subtitle automation</li>
+                    </ul>
+                </div>
+                <div class="content-card">
+                    <h3>👤 HeyGen</h3>
+                    <p><strong>Best for:</strong> AI avatar videos, presentations</p>
+                    <ul>
+                        <li>Custom AI avatars</li>
+                        <li>Multi-language support</li>
+                        <li>Professional templates</li>
+                        <li>Voice cloning</li>
+                    </ul>
+                </div>
+                <div class="content-card">
+                    <h3>🎨 Lumen5</h3>
+                    <p><strong>Best for:</strong> Social media videos, quick edits</p>
+                    <ul>
+                        <li>Text-to-video conversion</li>
+                        <li>Brand customization</li>
+                        <li>Music library</li>
+                        <li>Multiple aspect ratios</li>
+                    </ul>
+                </div>
+                <div class="content-card">
+                    <h3>⚡ Quick Alternatives</h3>
+                    <ul>
+                        <li><strong>InVideo:</strong> Template-based creation</li>
+                        <li><strong>Synthesia:</strong> AI presenter videos</li>
+                        <li><strong>Runway:</strong> Advanced AI video editing</li>
+                        <li><strong>Descript:</strong> Text-based video editing</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 18: Video Demo -->
+        <div class="slide">
+            <div class="slide-number">18 / 30</div>
+            <div class="slide-header">
+                <h2>🎥 Demo: Text to Reels with Subtitles</h2>
+            </div>
+            <div class="ai-demo">
+                <h3>🔴 Live Video Creation Process</h3>
+                <p>Watch as we transform a simple text into an engaging Reel:</p>
+                <ol>
+                    <li><strong>Input:</strong> Paste your AI-generated script</li>
+                    <li><strong>Customize:</strong> Choose style, colors, and music</li>
+                    <li><strong>Generate:</strong> Let AI create scenes and transitions</li>
+                    <li><strong>Edit:</strong> Fine-tune timing and visuals</li>
+                    <li><strong>Export:</strong> Download in the right format</li>
+                </ol>
+            </div>
+            <div class="content-grid">
+                <div class="content-card">
+                    <h3>📝 Script Structure</h3>
+                    <ul>
+                        <li><strong>Hook (0-3s):</strong> Grab attention</li>
+                        <li><strong>Value (3-12s):</strong> Deliver key message</li>
+                        <li><strong>CTA (12-15s):</strong> Tell them what to do next</li>
+                    </ul>
+                </div>
+                <div class="content-card">
+                    <h3>🎯 Optimization Tips</h3>
+                    <ul>
+                        <li>Keep text large and readable</li>
+                        <li>Use captions for accessibility</li>
+                        <li>Choose trending audio when possible</li>
+                        <li>Maintain brand consistency</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 19: Video Creation Task -->
+        <div class="slide">
+            <div class="slide-number">19 / 30</div>
+            <div class="slide-header">
+                <h2>🎬 Hands-on: Create a Reel using AI</h2>
+            </div>
+            <div class="hands-on-task">
+                <h3>🎯 Your Video Creation Challenge</h3>
+                <p><strong>Create a 15-second Reel about your expertise:</strong></p>
+                <ol>
+                    <li>Write a script using AI (ChatGPT prompt: "Create a 15-second script for a Reel about [your topic]")</li>
+                    <li>Choose your video creation tool (Pictory/Lumen5)</li>
+                    <li>Input your script and customize</li>
+                    <li>Add subtitles and brand elements</li>
+                    <li>Export and prepare for upload</li>
+                </ol>
+            </div>
+            <div class="interactive-section">
+                <h3>💡 Topic Ideas</h3>
+                <ul>
+                    <li>"3 Mistakes Everyone Makes while choosing Mutual Funds"</li>
+                    <li>"Quick Tip Tuesday: is ETF better than Gold"</li>
+                    <li>"Before vs After: Sensex vs Gold investment"</li>
+                    <li>"Day in the Life of a Mutual Fund Distributor"</li>
+                </ul>
+                <p><em>Time allocation: 12 minutes</em></p>
+            </div>
+        </div>
+
+        <!-- Slide 20: AI for Planning & Scheduling -->
+        <div class="slide">
+            <div class="slide-number">20 / 30</div>
+            <div class="slide-header">
+                <h2>🤖 AI for Planning, Scheduling & Hashtags</h2>
+            </div>
+            <div class="content-grid">
+                <div class="content-card">
+                    <h3>📅 Content Planning with AI</h3>
+                    <p><strong>ChatGPT Prompt:</strong> "Create a 30-day content calendar for a [profession] focusing on [niche]. Include post types, topics, and optimal posting times."</p>
+                </div>
+                <div class="content-card">
+                    <h3>#️⃣ Hashtag Generation</h3>
+                    <p><strong>AI Prompt:</strong> "Generate 30 relevant hashtags for [topic/industry]. Mix popular and niche hashtags. Categorize by reach: high, medium, low."</p>
+                </div>
+                <div class="content-card">
+                    <h3>⏰ Optimal Timing</h3>
+                    <p>AI can analyze your audience data and suggest:</p>
+                    <ul>
+                        <li>Best posting times</li>
+                        <li>Frequency recommendations</li>
+                        <li>Platform-specific strategies</li>
+                        <li>Seasonal content ideas</li>
+                    </ul>
+                </div>
+                <div class="content-card">
+                    <h3>📊 Performance Prediction</h3>
+                    <p>Use AI to predict content performance:</p>
+                    <ul>
+                        <li>Caption effectiveness</li>
+                        <li>Visual appeal scores</li>
+                        <li>Engagement potential</li>
+                        <li>Trend alignment</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 21: Automation Tools -->
+        <div class="slide">
+            <div class="slide-number">21 / 30</div>
+            <div class="slide-header">
+                <h2>⚡ Tools: Notion, Metricool, Zapier</h2>
+            </div>
+            <div class="content-grid">
+                <div class="content-card">
+                    <h3>🗂️ Notion AI</h3>
+                    <ul>
+                        <li><strong>Content Database:</strong> Track all posts, performance, ideas</li>
+                        <li><strong>AI Writing:</strong> Generate and refine content</li>
+                        <li><strong>Templates:</strong> Standardize your workflow</li>
+                        <li><strong>Collaboration:</strong> Team content planning</li>
+                    </ul>
+                </div>
+                <div class="content-card">
+                    <h3>📈 Metricool</h3>
+                    <ul>
+                        <li><strong>Multi-platform scheduling</strong></li>
+                        <li><strong>Analytics dashboard</strong></li>
+                        <li><strong>Best time analysis</strong></li>
+                        <li><strong>Competitor tracking</strong></li>
+                    </ul>
+                </div>
+                <div class="content-card">
+                    <h3>🔗 Zapier</h3>
+                    <ul>
+                        <li><strong>Cross-platform automation</strong></li>
+                        <li><strong>Content republishing</strong></li>
+                        <li><strong>Lead capture integration</strong></li>
+                        <li><strong>Workflow triggers</strong></li>
+                    </ul>
+                </div>
+                <div class="content-card">
+                    <h3>📱 Alternative Tools</h3>
+                    <ul>
+                        <li><strong>Later:</strong> Visual content calendar</li>
+                        <li><strong>Buffer:</strong> Simple scheduling</li>
+                        <li><strong>Hootsuite:</strong> Enterprise management</li>
+                        <li><strong>Sprout Social:</strong> Advanced analytics</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 22: Automation Flow Example -->
+        <div class="slide">
+            <div class="slide-number">22 / 30</div>
+            <div class="slide-header">
+                <h2>🔄 Automation Flow Example</h2>
+            </div>
+            <div class="ai-demo">
+                <h3>🚀 Complete Content Automation Workflow</h3>
+                <div class="content-grid">
+                    <div class="content-card">
+                        <h3>Step 1: Content Creation</h3>
+                        <p>AI generates blog post → Automatically creates social media versions → Designs visual assets</p>
+                    </div>
+                    <div class="content-card">
+                        <h3>Step 2: Multi-Platform Distribution</h3>
+                        <p>Zapier detects new content → Reformats for each platform → Schedules across LinkedIn, Instagram, Twitter</p>
+                    </div>
+                    <div class="content-card">
+                        <h3>Step 3: Engagement Tracking</h3>
+                        <p>Tools monitor comments → Alert for engagement opportunities → Track performance metrics</p>
+                    </div>
+                    <div class="content-card">
+                        <h3>Step 4: Lead Nurturing</h3>
+                        <p>Capture engaged users → Add to email sequences → Personalized follow-up content</p>
+                    </div>
+                </div>
+            </div>
+            <div class="interactive-section">
+                <h3>💡 Automation Ideas for Your Business</h3>
+                <ul>
+                    <li>Blog post → Social media posts</li>
+                    <li>YouTube video → Podcast episode + Clips</li>
+                    <li>Email newsletter → LinkedIn article</li>
+                    <li>Instagram post → Twitter thread</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 23: Hands-on Automation -->
+        <div class="slide">
+            <div class="slide-number">23 / 30</div>
+            <div class="slide-header">
+                <h2>⚡ Hands-on: Schedule an AI-Generated Post</h2>
+            </div>
+            <div class="hands-on-task">
+                <h3>🎯 Automation Challenge</h3>
+                <p><strong>Create and schedule your first automated post:</strong></p>
+                <ol>
+                    <li>Use your AI-generated content from earlier</li>
+                    <li>Sign up for a free scheduling tool (Buffer/Later)</li>
+                    <li>Upload your Canva design</li>
+                    <li>Schedule for optimal posting time</li>
+                    <li>Set up basic automation (cross-posting)</li>
+                </ol>
+            </div>
+            <div class="interactive-section">
+                <h3>📋 Scheduling Checklist</h3>
+                <ul>
+                    <li>✅ Platform-specific sizing</li>
+                    <li>✅ Relevant hashtags added</li>
+                    <li>✅ Engaging caption with CTA</li>
+                    <li>✅ Optimal posting time selected</li>
+                    <li>✅ Cross-platform versions created</li>
+                </ul>
+                <p><em>Time allocation: 10 minutes</em></p>
+            </div>
+        </div>
+
+        <!-- Slide 24: Growth Metrics -->
+        <div class="slide">
+            <div class="slide-number">24 / 30</div>
+            <div class="slide-header">
+                <h2>📈 Growth Mindset: Metrics to Track</h2>
+            </div>
+            <div class="content-grid">
+                <div class="content-card">
+                    <h3>👥 Awareness Metrics</h3>
+                    <ul>
+                        <li>Reach and impressions</li>
+                        <li>Follower growth rate</li>
+                        <li>Brand mention tracking</li>
+                        <li>Share of voice</li>
+                    </ul>
+                </div>
+                <div class="content-card">
+                    <h3>💬 Engagement Metrics</h3>
+                    <ul>
+                        <li>Engagement rate (likes, comments, shares)</li>
+                        <li>Comment sentiment analysis</li>
+                        <li>Save/bookmark rates</li>
+                        <li>Story completion rates</li>
+                    </ul>
+                </div>
+                <div class="content-card">
+                    <h3>🔄 Conversion Metrics</h3>
+                    <ul>
+                        <li>Click-through rates</li>
+                        <li>Lead generation</li>
+                        <li>Email sign-ups</li>
+                        <li>Sales attribution</li>
+                    </ul>
+                </div>
+                <div class="content-card">
+                    <h3>🎯 Quality Indicators</h3>
+                    <ul>
+                        <li>Audience quality score</li>
+                        <li>Content resonance</li>
+                        <li>Community building</li>
+                        <li>Thought leadership metrics</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="ai-demo">
+                <h3>📊 AI-Powered Analytics</h3>
+                <p>Use AI tools to analyze your metrics and get actionable insights for improvement!</p>
+            </div>
+        </div>
+
+        <!-- Slide 25: Ethics in AI -->
+        <div class="slide">
+            <div class="slide-number">25 / 30</div>
+            <div class="slide-header">
+                <h2>⚖️ Ethics in Using GenAI</h2>
+            </div>
+            <div class="ethics-highlight">
+                <h3>🔍 Transparency & Disclosure</h3>
+                <ul>
+                    <li>Disclose when content is AI-generated</li>
+                    <li>Be honest about your process</li>
+                    <li>Maintain authenticity in your voice</li>
+                    <li>Give credit where it's due</li>
+                </ul>
+            </div>
+            <div class="content-grid">
+                <div class="content-card">
+                    <h3>✨ Authenticity</h3>
+                    <ul>
+                        <li>Use AI as a starting point, not the end</li>
+                        <li>Add your personal insights and experiences</li>
+                        <li>Maintain your unique voice and perspective</li>
+                        <li>Share real stories and genuine moments</li>
+                    </ul>
+                </div>
+                <div class="content-card">
+                    <h3>🎨 Originality</h3>
+                    <ul>
+                        <li>Customize AI-generated content</li>
+                        <li>Combine multiple sources creatively</li>
+                        <li>Add original commentary and analysis</li>
+                        <li>Respect copyright and attribution</li>
+                    </ul>
+                </div>
+                <div class="content-card">
+                    <h3>🛡️ Responsible Use</h3>
+                    <ul>
+                        <li>Fact-check AI-generated information</li>
+                        <li>Avoid perpetuating biases</li>
+                        <li>Consider the impact on others</li>
+                        <li>Stay updated on AI ethics guidelines</li>
+                    </ul>
+                </div>
+                <div class="content-card">
+                    <h3>📝 Best Practices</h3>
+                    <ul>
+                        <li>Use AI as a collaborator, not a replacement</li>
+                        <li>Always review and edit AI output</li>
+                        <li>Maintain human oversight</li>
+                        <li>Be transparent about your methods</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 26: Using Feedback -->
+        <div class="slide">
+            <div class="slide-number">26 / 30</div>
+            <div class="slide-header">
+                <h2>🔄 Using Feedback to Improve Content</h2>
+            </div>
+            <div class="content-grid">
+                <div class="content-card">
+                    <h3>📊 Analyzing Performance Data</h3>
+                    <ul>
+                        <li>Identify top-performing content themes</li>
+                        <li>Analyze optimal posting times</li>
+                        <li>Track engagement patterns</li>
+                        <li>Monitor audience growth quality</li>
+                    </ul>
+                </div>
+                <div class="content-card">
+                    <h3>💬 Community Feedback</h3>
+                    <ul>
+                        <li>Read and respond to comments</li>
+                        <li>Ask direct questions for feedback</li>
+                        <li>Create polls and surveys</li>
+                        <li>Monitor DMs and mentions</li>
+                    </ul>
+                </div>
+                <div class="content-card">
+                    <h3>🔍 Content Auditing</h3>
+                    <ul>
+                        <li>Monthly performance reviews</li>
+                        <li>A/B testing different approaches</li>
+                        <li>Competitor analysis</li>
+                        <li>Trend adaptation strategies</li>
+                    </ul>
+                </div>
+                <div class="content-card">
+                    <h3>⚡ Rapid Iteration</h3>
+                    <ul>
+                        <li>Test new content formats</li>
+                        <li>Experiment with posting schedules</li>
+                        <li>Try different AI prompts</li>
+                        <li>Adapt based on platform changes</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="interactive-section">
+                <h3>📈 Continuous Improvement Loop</h3>
+                <p>Create → Measure → Learn → Optimize → Repeat</p>
+            </div>
+        </div>
+
+        <!-- Slide 27: Dos and Don'ts -->
+        <div class="slide">
+            <div class="slide-number">27 / 30</div>
+            <div class="slide-header">
+                <h2>✅❌ Dos and Don'ts for AI + Personal Branding</h2>
+            </div>
+            <div class="content-grid">
+                <div class="content-card" style="border-left-color: #28a745;">
+                    <h3 style="color: #28a745;">✅ DO</h3>
+                    <ul>
+                        <li>Use AI to enhance your natural voice</li>
+                        <li>Customize AI outputs to fit your brand</li>
+                        <li>Maintain consistency across platforms</li>
+                        <li>Engage authentically with your audience</li>
+                        <li>Stay updated on AI tool capabilities</li>
+                        <li>Test and iterate based on results</li>
+                        <li>Combine AI efficiency with human creativity</li>
+                    </ul>
+                </div>
+                <div class="content-card" style="border-left-color: #dc3545;">
+                    <h3 style="color: #dc3545;">❌ DON'T</h3>
+                    <ul>
+                        <li>Post AI content without reviewing/editing</li>
+                        <li>Rely entirely on AI for creativity</li>
+                        <li>Ignore your audience's feedback</li>
+                        <li>Copy competitors' AI strategies exactly</li>
+                        <li>Forget to fact-check AI-generated info</li>
+                        <li>Lose your authentic voice</li>
+                        <li>Neglect platform-specific optimization</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="ai-demo">
+                <h3>🎯 Golden Rule</h3>
+                <p><strong>AI should amplify your authentic self, not replace it!</strong></p>
+            </div>
+        </div>
+
+        <!-- Slide 28: Recap -->
+        <div class="slide">
+            <div class="slide-number">28 / 30</div>
+            <div class="slide-header">
+                <h2>🎉 Recap: What Did We Build Today?</h2>
+            </div>
+            <div class="content-grid">
+                <div class="content-card">
+                    <h3>🧬 Your Brand DNA</h3>
+                    <p>Defined your audience, niche, values, and voice</p>
+                </div>
+                <div class="content-card">
+                    <h3>📱 Platform Strategy</h3>
+                    <p>Chose optimal platforms and content pillars</p>
+                </div>
+                <div class="content-card">
+                    <h3>🤖 AI Content Arsenal</h3>
+                    <p>Created text, visual, and video content using AI</p>
+                </div>
+                <div class="content-card">
+                    <h3>⚡ Automation Workflow</h3>
+                    <p>Set up scheduling and cross-platform distribution</p>
+                </div>
+                <div class="content-card">
+                    <h3>📈 Growth Framework</h3>
+                    <p>Established metrics and feedback loops</p>
+                </div>
+                <div class="content-card">
+                    <h3>⚖️ Ethical Guidelines</h3>
+                    <p>Learned responsible AI usage for branding</p>
+                </div>
+            </div>
+            <div class="hands-on-task">
+                <h3>🎯 Key Outcomes Achieved</h3>
+                <ul>
+                    <li>✅ Complete brand strategy document</li>
+                    <li>✅ 7-day content calendar</li>
+                    <li>✅ AI-generated social media posts</li>
+                    <li>✅ Automated posting setup</li>
+                    <li>✅ Performance tracking system</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 29: 7-Day Challenge -->
+        <div class="slide">
+            <div class="slide-number">29 / 30</div>
+            <div class="slide-header">
+                <h2>🚀 7-Day Challenge: Build Your Brand Week-by-Week</h2>
+            </div>
+            <div class="challenge-day">
+                <h3>📅 Day 1: Foundation</h3>
+                <p>Optimize all social media profiles with your Brand DNA</p>
+            </div>
+            <div class="challenge-day">
+                <h3>📝 Day 2: Content Creation</h3>
+                <p>Create 5 posts using AI tools and schedule them</p>
+            </div>
+            <div class="challenge-day">
+                <h3>🎨 Day 3: Visual Branding</h3>
+                <p>Design brand templates and visual assets</p>
+            </div>
+            <div class="challenge-day">
+                <h3>🎬 Day 4: Video Content</h3>
+                <p>Create and post your first AI-generated video</p>
+            </div>
+            <div class="challenge-day">
+                <h3>💬 Day 5: Engagement</h3>
+                <p>Actively engage with your community and industry leaders</p>
+            </div>
+            <div class="challenge-day">
+                <h3>⚡ Day 6: Automation</h3>
+                <p>Set up advanced automation workflows</p>
+            </div>
+            <div class="challenge-day">
+                <h3>📊 Day 7: Analysis</h3>
+                <p>Review performance and plan next week's content</p>
+            </div>
+            <div class="interactive-section">
+                <h3>🔗 Challenge Resources</h3>
+                <p>Daily task templates: <strong>[Template Link]</strong></p>
+                <p>Progress tracking sheet: <strong>[Tracking Link]</strong></p>
+            </div>
+        </div>
+
+        <!-- Slide 30: Thank You -->
+        <div class="slide">
+            <div class="slide-number">30 / 30</div>
+            <div class="slide-header">
+                <h2>🙏 Thank You!</h2>
+            </div>
+            <div class="content-grid">
+                <div class="content-card">
+                    <h3>📜 Your Certificate</h3>
+                    <p>Congratulations on completing "Enhancing Personal Branding Using Social Media and Gen AI"</p>
+                    <div class="qr-placeholder">Certificate QR Code</div>
+                </div>
+                <div class="content-card">
+                    <h3>🛠️ Toolkit Access</h3>
+                    <p>Get your complete toolkit with templates, guides, and resources</p>
+                    <div class="qr-placeholder">Toolkit QR Code</div>
+                </div>
+                <div class="content-card">
+                    <h3>💬 Feedback</h3>
+                    <p>Help us improve future sessions with your valuable feedback</p>
+                    <div class="qr-placeholder">Feedback QR Code</div>
+                </div>
+                <div class="content-card">
+                    <h3>🌐 Stay Connected</h3>
+                    <ul>
+                        <li>📧 Email: [your-email@domain.com]</li>
+                        <li>📱 LinkedIn: [Your LinkedIn Profile]</li>
+                        <li>🐦 Twitter: [@YourHandle]</li>
+                        <li>📸 Instagram: [@YourHandle]</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="trainer-info">
+                <h3>🚀 Ready to transform your digital presence?</h3>
+                <p>The journey starts now. Use AI as your creative partner, but let your authentic voice lead the way!</p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">← Previous</button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Next →</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const slideCounter = document.getElementById('slideCounter');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const totalSlides = slides.length;
+
+        function showSlide(index) {
+            // Clamp index
+            if (index < 0) index = 0;
+            if (index >= totalSlides) index = totalSlides - 1;
+
+            slides.forEach((slide, i) => {
+                slide.classList.toggle('active', i === index);
+            });
+
+            // Update counter
+            slideCounter.textContent = `${index + 1} / ${totalSlides}`;
+
+            // Update navigation buttons
+            prevBtn.disabled = index === 0;
+            nextBtn.disabled = index === totalSlides - 1;
+        }
+
+        function changeSlide(direction) {
+            currentSlide += direction;
+            if (currentSlide < 0) currentSlide = 0;
+            if (currentSlide >= totalSlides) currentSlide = totalSlides - 1;
+            showSlide(currentSlide);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'PageDown') {
+                if (currentSlide < totalSlides - 1) changeSlide(1);
+            }
+            if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                if (currentSlide > 0) changeSlide(-1);
+            }
+        });
+
+        // Initialize
+        showSlide(currentSlide);
+
+        let time = 0;
+        let interval = null;
+        let isRunning = false;
+
+        const display = document.getElementById('display');
+        const startBtn = document.getElementById('startBtn');
+        const pauseBtn = document.getElementById('pauseBtn');
+        const stopBtn = document.getElementById('stopBtn');
+
+        function formatTime(ms) {
+            const hours = Math.floor(ms / 3600);
+            const minutes = Math.floor((ms % 3600) / 60);
+            const seconds = ms % 60;
+            return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        function updateDisplay() {
+            display.textContent = formatTime(time);
+        }
+
+        startBtn.addEventListener('click', () => {
+            if (!isRunning) {
+                isRunning = true;
+                interval = setInterval(() => {
+                    time++;
+                    updateDisplay();
+                }, 1000);
+            }
+        });
+
+        pauseBtn.addEventListener('click', () => {
+            if (isRunning) {
+                isRunning = false;
+                clearInterval(interval);
+            }
+        });
+
+        stopBtn.addEventListener('click', () => {
+            isRunning = false;
+            clearInterval(interval);
+            time = 0;
+            updateDisplay();
+        });
+
+    </script>
